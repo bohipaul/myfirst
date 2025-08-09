@@ -8,8 +8,21 @@ RUN adduser -S nextjs -u 1001
 # Définit le répertoire de travail dans le container
 WORKDIR /app
 
-# Copie le dossier de production Next.js
-COPY --chown=nextjs:nodejs out ./out
+# Copie les fichiers de configuration pour la build
+COPY package*.json ./
+COPY next.config.mjs ./
+COPY jsconfig.json ./
+COPY postcss.config.mjs ./
+
+# Installe les dépendances
+RUN npm ci --only=production
+
+# Copie le code source
+COPY --chown=nextjs:nodejs src ./src
+COPY --chown=nextjs:nodejs public ./public
+
+# Compile l'application Next.js
+RUN npm run build
 
 # Installe serve pour servir les fichiers statiques
 RUN npm install -g serve@14.2.3
