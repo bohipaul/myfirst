@@ -15,10 +15,10 @@
 
 # next.js
 /.next/
-/out/
 
 # production
 /build
+/out
 
 # misc
 .DS_Store
@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Docker
+Dockerfile
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
